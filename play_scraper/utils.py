@@ -363,6 +363,12 @@ def extract_id_query(url):
         absolute_url = urljoin(s.BASE_URL, url)
 
     query_string = urlparse(absolute_url).query
+    #if parse_qs returned null
+    app_id = '' 
+    try:
+      app_id = parse_qs(query_string).get('id')[0]
+    except TypeError as error:
+        print(sys._getframe().f_code.co_name, error)
     app_id = parse_qs(query_string).get("id")[0]
     return app_id
 
